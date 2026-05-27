@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RateLimiterPlayground/RateLimiterPlayground.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RateLimiterPlayground.Tests/RateLimiterPlayground.Tests.csproj" />
+  </Folder>
+</Solution>

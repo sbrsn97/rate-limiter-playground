@@ -9,11 +9,9 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-
       RateLimit__MaxRequests: 5
       RateLimit__WindowSeconds: 60
       RateLimit__Mode: Redis
-
       Redis__ConnectionString: redis:6379
     depends_on:
       - redis

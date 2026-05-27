@@ -1,2 +1,39 @@
-/obj
-/bin
+# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# ASP.NET logs
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker override files
+docker-compose.override.yml
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+
+# Environment files
+.env
+.env.*
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
