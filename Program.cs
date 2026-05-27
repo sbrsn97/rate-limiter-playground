@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.Configure<RateLimitOptions>(
     builder.Configuration.GetSection("RateLimit")
 );
-builder.Services.AddSingleton<IRateLimiter, SlidingWindowRateLimiter>();
+builder.Services.AddSingleton<IRateLimiter, InMemorySlidingWindowRateLimiter>();
 
 var app = builder.Build();
 

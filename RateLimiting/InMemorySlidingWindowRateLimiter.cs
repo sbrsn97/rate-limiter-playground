@@ -2,7 +2,7 @@ using Microsoft.Extensions.Options;
 
 namespace RateLimiterPlayground.RateLimiting;
 
-public class SlidingWindowRateLimiter : IRateLimiter
+public class InMemorySlidingWindowRateLimiter : IRateLimiter
 {
     private readonly Dictionary<string, Queue<DateTime>> _requests = new();
     private readonly object _lock = new();
@@ -10,7 +10,7 @@ public class SlidingWindowRateLimiter : IRateLimiter
     private readonly int _maxRequests;
     private readonly TimeSpan _window;
 
-    public SlidingWindowRateLimiter(IOptions<RateLimitOptions> options)
+    public InMemorySlidingWindowRateLimiter(IOptions<RateLimitOptions> options)
     {
         _maxRequests = options.Value.MaxRequests;
         _window = TimeSpan.FromSeconds(options.Value.WindowSeconds);
