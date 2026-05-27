@@ -45,6 +45,28 @@ public class RedisSlidingWindowRateLimiterTests : IDisposable
         Assert.True(limiter.IsAllowed(userTwo).IsAllowed);
     }
 
+    [Fact]
+    public async Task IsAllowed_ShouldHandleConcurrentRequestsCorrectly()
+    {
+        const int limit = 100;
+
+        var limiter = CreateLimiter(
+            maxRequests: limit,
+            windowSeconds: 60);
+
+        var userId = $"concurrent-user:{Guid.NewGuid()}";
+
+        var tasks = Enumerable.Range(0, 200)
+            .Select(_ => Task.Run(() => limiter.IsAllowed(userId)))
+            .ToArray();
+
+        var results = await Task.WhenAll(tasks);
+
+        var allowedCount = results.Count(r => r.IsAllowed);
+
+        Assert.Equal(limit, allowedCount);
+    }
+
     private RedisSlidingWindowRateLimiter CreateLimiter(
         int maxRequests,
         int windowSeconds)
