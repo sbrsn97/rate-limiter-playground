@@ -59,7 +59,8 @@ public class RedisSlidingWindowRateLimiter : IRateLimiter
         return new RateLimitResult
         {
             IsAllowed = (int)result[0] == 1,
-            RemainingRequests = (int)result[1]
+            RemainingRequests = (int)result[1],
+            LimiterType = "Redis"
         };
     }
 }

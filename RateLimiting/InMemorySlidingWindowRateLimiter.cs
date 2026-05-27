@@ -36,7 +36,8 @@ public class InMemorySlidingWindowRateLimiter : IRateLimiter
             {
                 return new RateLimitResult{
                     IsAllowed = false,
-                    RemainingRequests = 0
+                    RemainingRequests = 0,
+                    LimiterType = "InMemory"
                 };
             }
 
@@ -45,7 +46,8 @@ public class InMemorySlidingWindowRateLimiter : IRateLimiter
             return new RateLimitResult
             {
                 IsAllowed = true,
-                RemainingRequests = _maxRequests - timestamps.Count
+                RemainingRequests = _maxRequests - timestamps.Count,
+                LimiterType = "InMemory"
             };
         }
     }

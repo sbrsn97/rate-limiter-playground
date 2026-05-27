@@ -25,6 +25,7 @@ public class RateLimitingMiddleware
         var result = rateLimiter.IsAllowed(userId);
 
         context.Response.Headers["X-RateLimit-Remaining"] = result.RemainingRequests.ToString();
+        context.Response.Headers["X-RateLimit-Limiter"] = result.LimiterType;
 
         if(!result.IsAllowed)
         {
