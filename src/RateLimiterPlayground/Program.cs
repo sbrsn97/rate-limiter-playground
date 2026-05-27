@@ -25,6 +25,8 @@ var rateLimitOptions = builder.Configuration
     .GetSection("RateLimit")
     .Get<RateLimitOptions>() ?? new RateLimitOptions();
 
+builder.Services.AddSingleton<IClock, SystemClock>();
+
 builder.Services.AddSingleton<IRateLimiter>(ServiceProvider =>
 {
    return rateLimitOptions.Mode switch

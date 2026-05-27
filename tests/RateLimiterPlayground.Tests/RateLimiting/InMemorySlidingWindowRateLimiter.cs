@@ -5,7 +5,7 @@ namespace RateLimiterPlayground.Tests.RateLimiting;
 
 public class InMemorySlidingWindowRateLimiterTests
 {
-    private static InMemorySlidingWindowRateLimiter CreateLimiter(
+    private static (InMemorySlidingWindowRateLimiter Limiter, FakeClock Clock) CreateLimiter(
         int maxRequests = 3,
         int windowSeconds = 60)
     {
@@ -16,13 +16,16 @@ public class InMemorySlidingWindowRateLimiterTests
             Mode = RateLimiterMode.InMemory
         });
 
-        return new InMemorySlidingWindowRateLimiter(options);
+        var clock = new FakeClock();
+        var limiter = new InMemorySlidingWindowRateLimiter(options, clock);
+
+        return (limiter, clock);
     }
 
     [Fact]
     public void IsAllowed_ShouldAllowRequests_WhenLimitIsNotExceeded()
     {
-        var limiter = CreateLimiter(maxRequests: 3);
+        var (limiter, _) = CreateLimiter(maxRequests: 3);
 
         var first = limiter.IsAllowed("user-1");
         var second = limiter.IsAllowed("user-1");
@@ -39,7 +42,7 @@ public class InMemorySlidingWindowRateLimiterTests
     [Fact]
     public void IsAllowed_ShouldRejectRequest_WhenLimitIsExceeded()
     {
-        var limiter = CreateLimiter(maxRequests: 2);
+        var (limiter, _) = CreateLimiter(maxRequests: 2);
 
         Assert.True(limiter.IsAllowed("user-1").IsAllowed);
         Assert.True(limiter.IsAllowed("user-1").IsAllowed);
@@ -53,7 +56,7 @@ public class InMemorySlidingWindowRateLimiterTests
     [Fact]
     public void IsAllowed_ShouldTrackUsersIndependently()
     {
-        var limiter = CreateLimiter(maxRequests: 1);
+        var (limiter, _) = CreateLimiter(maxRequests: 1);
 
         var userOneFirstRequest = limiter.IsAllowed("user-1");
         var userOneSecondRequest = limiter.IsAllowed("user-1");
@@ -66,14 +69,14 @@ public class InMemorySlidingWindowRateLimiterTests
     }
 
     [Fact]
-    public async Task IsAllowed_ShouldAllowAgain_AfterWindowExpires()
+    public void IsAllowed_ShouldAllowAgain_AfterWindowExpires()
     {
-        var limiter = CreateLimiter(maxRequests: 1, windowSeconds: 1);
+        var (limiter, clock) = CreateLimiter(maxRequests: 1, windowSeconds: 60);
 
         var first = limiter.IsAllowed("user-1");
         var second = limiter.IsAllowed("user-1");
 
-        await Task.Delay(1100);
+        clock.Advance(TimeSpan.FromSeconds(61));
 
         var third = limiter.IsAllowed("user-1");
 
