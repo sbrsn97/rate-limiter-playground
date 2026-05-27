@@ -5,10 +5,8 @@ COPY ["src/RateLimiterPlayground/RateLimiterPlayground.csproj", "src/RateLimiter
 RUN dotnet restore "src/RateLimiterPlayground/RateLimiterPlayground.csproj"
 
 COPY . .
-RUN dotnet publish "src/RateLimiterPlayground/RateLimiterPlayground.csproj" \
-    -c Release \
-    -o /app/publish \
-    --no-restore
+
+RUN dotnet publish "src/RateLimiterPlayground/RateLimiterPlayground.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
