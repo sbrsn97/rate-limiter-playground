@@ -1,4 +1,4 @@
-namespace RateLimiterPlayground.RateLimiting;
+namespace RateLimiterPlayground.RateLimiting.Configuration;
 
 public class RedisOptions
 {

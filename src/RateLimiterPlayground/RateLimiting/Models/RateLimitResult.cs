@@ -1,4 +1,4 @@
-namespace RateLimiterPlayground.RateLimiting;
+namespace RateLimiterPlayground.RateLimiting.Models;
 
 public class RateLimitResult
 {

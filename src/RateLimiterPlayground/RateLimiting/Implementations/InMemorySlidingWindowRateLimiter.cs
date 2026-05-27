@@ -1,6 +1,9 @@
 using Microsoft.Extensions.Options;
+using RateLimiterPlayground.RateLimiting.Abstractions;
+using RateLimiterPlayground.RateLimiting.Configuration;
+using RateLimiterPlayground.RateLimiting.Models;
 
-namespace RateLimiterPlayground.RateLimiting;
+namespace RateLimiterPlayground.RateLimiting.Implementations;
 
 public class InMemorySlidingWindowRateLimiter : IRateLimiter
 {

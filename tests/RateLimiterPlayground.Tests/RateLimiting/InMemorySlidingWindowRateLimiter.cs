@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
-using RateLimiterPlayground.RateLimiting;
+using RateLimiterPlayground.RateLimiting.Configuration;
+using RateLimiterPlayground.RateLimiting.Implementations;
 
 namespace RateLimiterPlayground.Tests.RateLimiting;
 

@@ -1,6 +1,6 @@
 using System.Threading.RateLimiting;
 
-namespace RateLimiterPlayground.RateLimiting;
+namespace RateLimiterPlayground.RateLimiting.Configuration;
 
 public class RateLimitOptions
 {

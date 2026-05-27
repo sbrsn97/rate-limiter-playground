@@ -1,7 +1,10 @@
 using Microsoft.Extensions.Options;
+using RateLimiterPlayground.RateLimiting.Abstractions;
+using RateLimiterPlayground.RateLimiting.Configuration;
+using RateLimiterPlayground.RateLimiting.Models;
 using StackExchange.Redis;
 
-namespace RateLimiterPlayground.RateLimiting;
+namespace RateLimiterPlayground.RateLimiting.Implementations;
 
 public class RedisSlidingWindowRateLimiter : IRateLimiter
 {

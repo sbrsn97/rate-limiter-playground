@@ -1,4 +1,4 @@
-using RateLimiterPlayground.RateLimiting;
+using RateLimiterPlayground.RateLimiting.Abstractions;
 
 namespace RateLimiterPlayground.Middleware;
 
