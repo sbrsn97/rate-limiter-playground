@@ -1,6 +1,26 @@
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rate-limiter-api
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+
+      RateLimit__MaxRequests: 5
+      RateLimit__WindowSeconds: 60
+      RateLimit__Mode: Redis
+
+      Redis__ConnectionString: redis:6379
+    depends_on:
+      - redis
+
   redis:
     image: redis:7-alpine
     container_name: rate-limiter-redis
     ports:
-      -"6379:6379"
+      - "6379:6379"
+    restart: unless-stopped
